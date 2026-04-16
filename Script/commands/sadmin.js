@@ -2,7 +2,7 @@ const { writeFileSync, existsSync } = require("fs-extra");
 const { resolve } = require("path");
 
 module.exports.config = {
-  name: "0admin",
+  name: "sadmin",
   version: "2.0.0",
   hasPermssion: 2,
   credits: "Siyam Hasan Chat Bot",

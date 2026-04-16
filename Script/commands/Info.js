@@ -1,8 +1,8 @@
 module.exports.config = {
  name: "info",
- version: "1.0.0",
+ version: "2.0.0",
  hasPermssion: 0,
- credits: "SHAHADAT SAHU",
+ credits: "Siyam Hasan Chat Bot",
  description: "Bot information command",
  commandCategory: "For users",
  hide: true,
@@ -10,11 +10,10 @@ module.exports.config = {
  cooldowns: 5,
 };
 
-module.exports.run = async function ({ api, event, args, Users, Threads }) {
- const { threadID } = event;
- const request = global.nodemodule["request"];
- const fs = global.nodemodule["fs-extra"];
+module.exports.run = async function ({ api, event, Threads }) {
+ const { threadID, messageID } = event;
  const moment = require("moment-timezone");
+ const axios = require("axios");
 
  const { configPath } = global.client;
  delete require.cache[require.resolve(configPath)];
@@ -32,53 +31,91 @@ module.exports.run = async function ({ api, event, args, Users, Threads }) {
  const totalUsers = global.data.allUserID.length;
  const totalThreads = global.data.allThreadID.length;
 
- const msg = `╭⭓ ⪩ 𝐁𝐎𝐓𝐓 𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 ⪨
-│
-├─ 🤖 𝗕𝗼𝘁 𝗡𝗮𝗺𝗲 : ─꯭─⃝‌‌𝐒𝐡𝐚𝐡𝐚𝐝𝐚𝐭 𝐂𝐡𝐚𝐭 𝐁𝐨𝐭
-├─ ☢️ 𝗣𝗿𝗲𝗳𝗶𝘅 : ${config.PREFIX}
-├─ ♻️ 𝗣𝗿𝗲𝗳𝗶𝘅 𝗕𝗼𝘅 : ${prefix}
-├─ 🔶 𝗠𝗼𝗱𝘂𝗹𝗲𝘀 : ${commands.size}
-├─ 🔰 𝗣𝗶𝗻𝗴 : ${Date.now() - event.timestamp}ms
-│
-╰───────⭓
+ const now = moment().tz("Asia/Dhaka");
+ const time = now.format("h:mm:ss A");
+ const date = now.format("DD/MM/YYYY");
 
-╭⭓ ⪩ 𝗢𝗪𝗡𝗘𝗥 𝗜𝗡𝗙𝗢 ⪨
-│
-├─ 👑 𝗡𝗮𝗺𝗲 : 𝐒𝐡𝐚𝐡𝐚𝐝𝐚𝐭 𝐈𝐬𝐥𝐚𝐦
-├─ 📲 𝗙𝗮𝗰𝗲𝗯𝗼𝗼𝗸 :
-│ facebook.com/61575698041722
-├─ 💌 𝗠𝗲𝘀𝘀𝗲𝗻𝗴𝗲𝗿 :
-│ m.me/61575698041722
-├─ 📞 𝗪𝗵𝗮𝘁𝘀𝗔𝗽𝗽 :
-│ wa.me/+8801882333052
-│
-╰───────⭓
+ const groupName = event.threadName || "Unknown Group";
 
-╭⭓ ⪩ 𝗔𝗖𝗧𝗜𝗩𝗜𝗧𝗜𝗘𝗦 ⪨
-│
-├─ ⏳ 𝗔𝗰𝘁𝗶𝘃𝗲 𝗧𝗶𝗺𝗲 : ${hours}h ${minutes}m ${seconds}s
-├─ 📣 𝗚𝗿𝗼𝘂𝗽𝘀 : ${totalThreads}
-├─ 🧿 𝗧𝗼𝘁𝗮𝗹 𝗨𝘀𝗲𝗿𝘀 : ${totalUsers}
-╰───────⭓
+ // 🎥 YOUR VIDEO
+ const videoLink = "https://files.catbox.moe/g5vr8h.mp4";
 
-❤️ 𝗧𝗵𝗮𝗻𝗸𝘀 𝗳𝗼𝗿 𝘂𝘀𝗶𝗻𝗴 🌺
- 😍─꯭─⃝‌‌𝐒𝐡𝐚𝐡𝐚𝐝𝐚𝐭 𝐂𝐡𝐚𝐭 𝐁𝐨𝐭😘`;
+ const msg = `
+╔═━━━✦ 👑 𝐒𝐈𝐘𝐀𝐌 𝐇𝐀𝐒𝐀𝐍 𝐂𝐇𝐀𝐓 𝐁𝐎𝐓 👑 ✦━━━═╗
 
- const imgLinks = [
- "https://i.imgur.com/zqsuJnX.jpeg",
- "https://i.imgur.com/sxSn1K3.jpeg",
- "https://i.imgur.com/wu0iDqS.jpeg",
- "https://i.imgur.com/Huz3nAE.png"
- ];
+👑 ╭─❖ OWNER ❖─╮
+   ╰➤ 『UDAY HOSSEIN SIYAM』
 
- const imgLink = imgLinks[Math.floor(Math.random() * imgLinks.length)];
+🤖 ╭─❖ BOT NAME ❖─╮
+   ╰➤ 『Siyam Chat Bot』
 
- const callback = () => {
- api.sendMessage({
- body: msg,
- attachment: fs.createReadStream(__dirname + "/cache/info.jpg")
- }, threadID, () => fs.unlinkSync(__dirname + "/cache/info.jpg"));
- };
+🎂 ╭─❖ AGE ❖─╮
+   ╰➤ 『16』
 
- return request(encodeURI(imgLink)).pipe(fs.createWriteStream(__dirname + "/cache/info.jpg")).on("close", callback);
+🚻 ╭─❖ GENDER ❖─╮
+   ╰➤ 『Male』
+
+☪ ╭─❖ RELIGION ❖─╮
+   ╰➤ 『Islam』
+
+🌐 ╭─❖ FACEBOOK ❖─╮
+   ╰➤ 『https://www.facebook.com/photo.php?fbid=122172272774613710&set=a.122097678158613710&type=3』
+
+💬 ╭─❖ MESSENGER ❖─╮
+   ╰➤ 『m.me/61568411310748』
+
+📞 ╭─❖ WHATSAPP ❖─╮
+   ╰➤ 『wa.me/+8801789138157』
+
+👑 ╭─❖ GROUP ❖─╮
+   ╰➤ 『${groupName}』
+
+⚙️ ╭─❖ PREFIX ❖─╮
+   ╰➤ 『${prefix}』
+
+📦 ╭─❖ COMMANDS ❖─╮
+   ╰➤ 『${commands.size}』
+
+⏳ ╭─❖ UPTIME ❖─╮
+   ╰➤ 『${hours}h ${minutes}m ${seconds}s』
+
+👥 ╭─❖ USERS ❖─╮
+   ╰➤ 『${totalUsers}』
+
+🌐 ╭─❖ GROUPS ❖─╮
+   ╰➤ 『${totalThreads}』
+
+🕒 ╭─❖ TIME ❖─╮
+   ╰➤ 『${time}』
+
+📅 ╭─❖ DATE ❖─╮
+   ╰➤ 『${date}』
+
+🏠 ╭─❖ ADDRESS ❖─╮
+   ╰➤ 『KISHOREGANJ, BANGLADESH』
+
+🏫 ╭─❖ SCHOOL ❖─╮
+   ╰➤ 『M A MANNAN MANIK HIGH SCHOOL』
+
+💔 ╭─❖ RELATION ❖─╮
+   ╰➤ 『SINGLE』
+
+🔥 ╭─❖ ATTITUDE ❖─╮
+   ╰➤ 『আমি ভদ্র, কিন্তু কেউ আমাকে হালকাভাবে নিতে পারবে না ✌️』
+   ╰➤ 『আমি যেটা চাই তা অর্জন করি, কারো চাপে চলি না 💥』
+
+╚═══━━━✦🔥
+`;
+
+ try {
+   const res = await axios.get(videoLink, { responseType: "stream" });
+
+   return api.sendMessage({
+     body: msg,
+     attachment: res.data
+   }, threadID, messageID);
+
+ } catch (e) {
+   return api.sendMessage(msg, threadID, messageID);
+ }
 };
